@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portfolio of an elite Staff Software Engineer and Applied Computer Scientist. Algorithms, Discrete Math, Distributed Systems, and Low-Latency Architecture.">
+    <title data-i18n="site_title">Staff Systems Architect & Applied Computer Scientist</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Background Graph Mesh Canvas -->
+    <canvas id="mesh-canvas"></canvas>
+
+    <!-- Navigation Header -->
+    <header class="navbar">
+        <div class="container nav-container">
+            <a href="#" class="nav-brand">
+                <span class="brand-icon mono">λ</span>
+                <span class="brand-title">SYSTEMS.ARCH</span>
+                <span class="brand-tag mono">STAFF L7</span>
+            </a>
+
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#about" class="nav-link" data-i18n="nav_about">Identity</a></li>
+                    <li><a href="#lab" class="nav-link" data-i18n="nav_algorithms">Algorithms Lab</a></li>
+                    <li><a href="#math" class="nav-link" data-i18n="nav_math">Discrete Math</a></li>
+                    <li><a href="#systems" class="nav-link" data-i18n="nav_systems">Systems Architecture</a></li>
+                    <li><a href="#projects" class="nav-link" data-i18n="nav_projects">Projects</a></li>
+                    <li><a href="#terminal" class="nav-link" data-i18n="nav_terminal">CLI Terminal</a></li>
+                    <li><a href="#contact" class="nav-link" data-i18n="nav_contact">Contact</a></li>
+                </ul>
+            </nav>
+
+            <!-- Multilingual Selector: English, Amharic, Afaan Oromoo -->
+            <div class="lang-switcher" aria-label="Language selector">
+                <button type="button" class="lang-btn active" data-lang="en">EN</button>
+                <button type="button" class="lang-btn" data-lang="am">አማ</button>
+                <button type="button" class="lang-btn" data-lang="om">ORO</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="about" class="hero-section">
+            <div class="container">
+                <div class="hero-content">
+                    <div class="hero-badge-pill">
+                        <span class="status-dot"></span>
+                        <span data-i18n="hero_badge">Staff Software Engineer • Applied Computer Scientist</span>
+                    </div>
+
+                    <h1 class="hero-title">
+                        <span data-i18n="hero_title_1">Architecting Resilient Systems</span><br>
+                        <span class="gradient-text" data-i18n="hero_title_2">Rooted in Formal Mathematics & Algorithmic Rigor.</span>
+                    </h1>
+
+                    <p class="hero-description" data-i18n="hero_desc">
+                        Specializing in core data structures, graph theory, discrete mathematics, distributed consensus, and low-latency systems. Committed to zero-fluff, production-grade code with formal O(n) space-time guarantees.
+                    </p>
+
+                    <div class="hero-actions">
+                        <a href="#lab" class="btn btn-primary" data-i18n="hero_btn_lab">Launch Algorithms Lab</a>
+                        <a href="#terminal" class="btn btn-secondary mono" data-i18n="hero_btn_cli">&gt;_ Open Systems Terminal</a>
+                        <a href="#contact" class="btn btn-secondary" data-i18n="hero_btn_contact">Direct Communication</a>
+                    </div>
+                </div>
+
+                <!-- Systems Telemetry KPI Grid -->
+                <div class="telemetry-grid">
+                    <div class="glass-card stat-card">
+                        <span class="stat-value mono" data-i18n="stat_1_val">O(1)</span>
+                        <span class="stat-label" data-i18n="stat_1_lbl">Lock-Free LRU Retrieval</span>
+                    </div>
+                    <div class="glass-card stat-card">
+                        <span class="stat-value mono" data-i18n="stat_2_val">&lt; 50µs</span>
+                        <span class="stat-label" data-i18n="stat_2_lbl">Ring Buffer Pipeline P99</span>
+                    </div>
+                    <div class="glass-card stat-card">
+                        <span class="stat-value mono" data-i18n="stat_3_val">100%</span>
+                        <span class="stat-label" data-i18n="stat_3_lbl">Formal State Verification</span>
+                    </div>
+                    <div class="glass-card stat-card">
+                        <span class="stat-value mono" data-i18n="stat_4_val">Zero</span>
+                        <span class="stat-label" data-i18n="stat_4_lbl">Allocations on Hot Paths</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Laboratory Section -->
+        <section id="lab" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title" data-i18n="algo_tab_title">Interactive Algorithmic Laboratory</h2>
+                    <p class="section-subtitle" data-i18n="algo_tab_desc">Explore verified algorithmic routines with real-time state visualization and Big-O runtime profiling.</p>
+                </div>
+
+                <!-- Tab Navigation Bar -->
+                <div class="lab-tabs" role="tablist">
+                    <button type="button" class="lab-tab-btn active" data-tab="tab-trees" role="tab">Data Structures (BST)</button>
+                    <button type="button" class="lab-tab-btn" data-tab="tab-graphs" role="tab">Graph Theory & Dijkstra</button>
+                    <button type="button" class="lab-tab-btn" data-tab="tab-systems-arch" role="tab">Systems Cache & Ring Buffer</button>
+                </div>
+
+                <!-- Tab 1: Binary Search Tree -->
+                <div id="tab-trees" class="lab-pane active" role="tabpanel">
+                    <div class="module-card">
+                        <div class="card-top">
+                            <div>
+                                <h3 data-i18n="algo_bst_title">Binary Search Tree (BST) & Invariants</h3>
+                                <p class="text-dim text-sm" data-i18n="algo_bst_desc">Dynamic balanced search space with recursive insert, delete, search, and in-order traversals.</p>
+                            </div>
+                            <span class="badge-tag">Search: O(log N) | Space: O(N)</span>
+                        </div>
+
+                        <div class="control-bar">
+                            <input type="number" id="bst-val-input" class="input-field input-num" placeholder="Key (int)" aria-label="BST Key Input">
+                            <button type="button" id="bst-insert-btn" class="btn-ctrl">+ Insert</button>
+                            <button type="button" id="bst-search-btn" class="btn-ctrl">🔍 Search</button>
+                            <button type="button" id="bst-delete-btn" class="btn-ctrl btn-danger">✕ Delete</button>
+                            <button type="button" id="bst-clear-btn" class="btn-ctrl">Clear Tree</button>
+                        </div>
+
+                        <div id="bst-container" class="visual-viewport" aria-label="Binary Search Tree Visualizer"></div>
+                        <div id="bst-telemetry" class="telemetry-tray mono"></div>
+                    </div>
+                </div>
+
+                <!-- Tab 2: Graph Theory & Dijkstra -->
+                <div id="tab-graphs" class="lab-pane" role="tabpanel">
+                    <div class="module-card">
+                        <div class="card-top">
+                            <div>
+                                <h3 data-i18n="algo_dijkstra_title">Graph Theory: Dijkstra & Topological Sort</h3>
+                                <p class="text-dim text-sm" data-i18n="algo_dijkstra_desc">Shortest path discovery with Min-Heap priority queues and Kahn's DAG cycle detection.</p>
+                            </div>
+                            <span class="badge-tag">Time: O((V + E) log V) | Space: O(V)</span>
+                        </div>
+
+                        <div class="control-bar">
+                            <label for="graph-start" class="text-dim text-sm">Source:</label>
+                            <select id="graph-start" class="select-field">
+                                <option value="A">Vertex A</option>
+                                <option value="B">Vertex B</option>
+                                <option value="C">Vertex C</option>
+                            </select>
+
+                            <label for="graph-end" class="text-dim text-sm">Target:</label>
+                            <select id="graph-end" class="select-field">
+                                <option value="F" selected>Vertex F</option>
+                                <option value="D">Vertex D</option>
+                                <option value="E">Vertex E</option>
+                            </select>
+
+                            <button type="button" id="graph-run-btn" class="btn-ctrl">Compute Shortest Path</button>
+                            <button type="button" id="graph-topo-btn" class="btn-ctrl">Kahn's TopoSort</button>
+                        </div>
+
+                        <div id="graph-container" class="visual-viewport" aria-label="Graph Network Visualizer"></div>
+                        <div id="graph-telemetry" class="telemetry-tray mono"></div>
+                    </div>
+                </div>
+
+                <!-- Tab 3: Systems Architecture (LRU Cache & Ring Buffer) -->
+                <div id="tab-systems-arch" class="lab-pane" role="tabpanel">
+                    <div class="module-grid">
+                        <!-- LRU Cache -->
+                        <div class="module-card">
+                            <div class="card-top">
+                                <div>
+                                    <h3 data-i18n="algo_cache_title">Systems: O(1) LRU Cache & Eviction</h3>
+                                    <p class="text-dim text-sm" data-i18n="algo_cache_desc">Doubly Linked List + Hash Map layout with atomic sentinel pointers.</p>
+                                </div>
+                                <span class="badge-tag">Get/Put: O(1)</span>
+                            </div>
+
+                            <div class="control-bar">
+                                <input type="text" id="lru-key-input" class="input-field" placeholder="Key" style="width: 100px;">
+                                <input type="text" id="lru-val-input" class="input-field" placeholder="Value" style="width: 120px;">
+                                <button type="button" id="lru-put-btn" class="btn-ctrl">Put(k, v)</button>
+                                <button type="button" id="lru-get-btn" class="btn-ctrl">Get(k)</button>
+                            </div>
+
+                            <div id="lru-metrics" class="lru-metrics-bar"></div>
+                            <div id="lru-container" class="visual-viewport" aria-label="LRU Cache Linked List Viewport"></div>
+                        </div>
+
+                        <!-- Ring Buffer -->
+                        <div class="module-card">
+                            <div class="card-top">
+                                <div>
+                                    <h3 data-i18n="algo_ring_title">Low-Level: Circular Ring Buffer</h3>
+                                    <p class="text-dim text-sm" data-i18n="algo_ring_desc">Bounded zero-copy memory ring buffer with atomic cursor wrapping.</p>
+                                </div>
+                                <span class="badge-tag">Enqueue/Dequeue: O(1)</span>
+                            </div>
+
+                            <div class="control-bar">
+                                <button type="button" id="ring-push-btn" class="btn-ctrl">+ Enqueue Packet</button>
+                                <button type="button" id="ring-pop-btn" class="btn-ctrl btn-danger">- Dequeue Oldest</button>
+                            </div>
+
+                            <div id="ring-telemetry" class="telemetry-tray mono" style="margin-bottom: 1rem;">Buffer ready. Slots: 8.</div>
+                            <div id="ring-container" class="visual-viewport" aria-label="Circular Ring Buffer Viewport"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Applied Mathematics & Discrete Logic Section -->
+        <section id="math" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title" data-i18n="math_tab_title">Applied Mathematics & Discrete Logic</h2>
+                    <p class="section-subtitle" data-i18n="math_tab_desc">Computational engine for combinatorics, topological invariants, and propositional truth tables.</p>
+                </div>
+
+                <div class="module-grid">
+                    <!-- Combinatorics Engine -->
+                    <div class="module-card">
+                        <div class="card-top">
+                            <div>
+                                <h3 data-i18n="math_comb_title">Combinatorics & Probability Engine</h3>
+                                <p class="text-dim text-sm" data-i18n="math_comb_desc">High-precision calculations for factorials, permutations P(n,r), combinations C(n,r).</p>
+                            </div>
+                            <span class="badge-tag">BigInt Arbitrary Precision</span>
+                        </div>
+
+                        <div class="control-bar">
+                            <label for="math-n" class="text-dim mono">n = </label>
+                            <input type="number" id="math-n" class="input-field input-num" value="10" min="0" max="60">
+                            <label for="math-r" class="text-dim mono">r = </label>
+                            <input type="number" id="math-r" class="input-field input-num" value="4" min="0" max="60">
+                            <button type="button" id="math-calc-btn" class="btn-ctrl">Compute Rigorous Values</button>
+                        </div>
+
+                        <div id="math-results" class="visual-viewport">
+                            <div class="math-result-card">
+                                <div class="math-result-item">
+                                    <span class="label mono">Factorial n! = 10!</span>
+                                    <span class="value text-accent mono">3628800</span>
+                                </div>
+                                <div class="math-result-item">
+                                    <span class="label mono">Permutations P(10, 4)</span>
+                                    <span class="value text-emerald mono">5040</span>
+                                </div>
+                                <div class="math-result-item">
+                                    <span class="label mono">Combinations C(10, 4)</span>
+                                    <span class="value text-purple mono">210</span>
+                                </div>
+                                <div class="math-result-item">
+                                    <span class="label mono">Binomial P(X=4 | p=0.5)</span>
+                                    <span class="value text-cyan mono">0.205078</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Propositional Logic Truth Table Synthesizer -->
+                    <div class="module-card">
+                        <div class="card-top">
+                            <div>
+                                <h3 data-i18n="math_logic_title">Propositional Logic Truth Table Synthesizer</h3>
+                                <p class="text-dim text-sm" data-i18n="math_logic_desc">Parses propositional statements, verifies tautologies, contradictions, and all 2^k models.</p>
+                            </div>
+                            <span class="badge-tag">Boolean Algebra φ</span>
+                        </div>
+
+                        <div class="control-bar">
+                            <input type="text" id="logic-expr-input" class="input-field" value="(A AND B) OR NOT C" style="flex: 1;">
+                            <button type="button" id="logic-eval-btn" class="btn-ctrl">Generate Truth Table</button>
+                        </div>
+
+                        <div id="logic-table-container" class="visual-viewport" style="overflow-y: auto; max-height: 320px;">
+                            <div class="truth-table-wrapper">
+                                <div class="classification-badge contingency">
+                                    Classification: <strong>Contingency</strong> (Valid Models: 5/8)
+                                </div>
+                                <table class="truth-table">
+                                    <thead>
+                                        <tr>
+                                            <th>A</th><th>B</th><th>C</th>
+                                            <th class="result-header">Result (φ)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td class="val-false">F</td><td class="val-false">F</td><td class="val-false">F</td><td class="result-cell res-true">TRUE (1)</td></tr>
+                                        <tr><td class="val-false">F</td><td class="val-false">F</td><td class="val-true">T</td><td class="result-cell res-false">FALSE (0)</td></tr>
+                                        <tr><td class="val-false">F</td><td class="val-true">T</td><td class="val-false">F</td><td class="result-cell res-true">TRUE (1)</td></tr>
+                                        <tr><td class="val-false">F</td><td class="val-true">T</td><td class="val-true">T</td><td class="result-cell res-false">FALSE (0)</td></tr>
+                                        <tr><td class="val-true">T</td><td class="val-false">F</td><td class="val-false">F</td><td class="result-cell res-true">TRUE (1)</td></tr>
+                                        <tr><td class="val-true">T</td><td class="val-false">F</td><td class="val-true">T</td><td class="result-cell res-false">FALSE (0)</td></tr>
+                                        <tr><td class="val-true">T</td><td class="val-true">T</td><td class="val-false">F</td><td class="result-cell res-true">TRUE (1)</td></tr>
+                                        <tr><td class="val-true">T</td><td class="val-true">T</td><td class="val-true">T</td><td class="result-cell res-true">TRUE (1)</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Flagship Systems & Architectures -->
+        <section id="projects" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title" data-i18n="proj_tab_title">Selected Technical Projects</h2>
+                    <p class="section-subtitle" data-i18n="proj_tab_desc">Production deployments demonstrating systems optimization and mathematical modeling.</p>
+                </div>
+
+                <div class="projects-grid">
+                    <!-- Project 1 -->
+                    <article class="project-card">
+                        <div>
+                            <span class="badge-tag">DISTRIBUTED CONSENSUS</span>
+                            <h3 style="margin: 0.75rem 0;" data-i18n="proj_1_title">AetherKV: Distributed Consensus Key-Value Store</h3>
+                            <p class="text-dim" data-i18n="proj_1_desc">Built with partitioned Raft consensus, SSTable LSM-trees, and sub-millisecond tail latencies.</p>
+                        </div>
+                        <div class="project-tags">
+                            <span class="tech-tag">Raft Consensus</span>
+                            <span class="tech-tag">LSM-Trees</span>
+                            <span class="tech-tag">Zero-Copy Buffer</span>
+                            <span class="tech-tag">O(1) Indexing</span>
+                        </div>
+                    </article>
+
+                    <!-- Project 2 -->
+                    <article class="project-card">
+                        <div>
+                            <span class="badge-tag">HIGH-DIMENSIONAL SEARCH</span>
+                            <h3 style="margin: 0.75rem 0;" data-i18n="proj_2_title">ChronosEngine: SIMD-Accelerated Vector Index</h3>
+                            <p class="text-dim" data-i18n="proj_2_desc">HNSW high-dimensional vector search engine with quantized Euclidean distance optimization.</p>
+                        </div>
+                        <div class="project-tags">
+                            <span class="tech-tag">HNSW Graph</span>
+                            <span class="tech-tag">SIMD AVX-512</span>
+                            <span class="tech-tag">Sub-ms Query</span>
+                            <span class="tech-tag">Vector Quantization</span>
+                        </div>
+                    </article>
+
+                    <!-- Project 3 -->
+                    <article class="project-card">
+                        <div>
+                            <span class="badge-tag">FORMAL VERIFICATION</span>
+                            <h3 style="margin: 0.75rem 0;" data-i18n="proj_3_title">GraphQ: Automated Theorem & Invariant Checker</h3>
+                            <p class="text-dim" data-i18n="proj_3_desc">Formal graph verification CLI testing planarity, chromatic numbers, and Hamiltonian cycles.</p>
+                        </div>
+                        <div class="project-tags">
+                            <span class="tech-tag">Euler Planarity</span>
+                            <span class="tech-tag">Graph Invariants</span>
+                            <span class="tech-tag">Brooks' Theorem</span>
+                            <span class="tech-tag">Discrete Math</span>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Terminal (CLI Emulator) -->
+        <section id="terminal" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title" data-i18n="cli_title">Staff Systems Interactive Terminal</h2>
+                    <p class="section-subtitle" data-i18n="cli_hint">Type 'help' to inspect system commands, 'whoami' for background, or 'lang [en|am|om]' to switch dialects.</p>
+                </div>
+
+                <div class="terminal-window">
+                    <div class="terminal-header">
+                        <div class="term-controls">
+                            <span class="term-dot close"></span>
+                            <span class="term-dot min"></span>
+                            <span class="term-dot max"></span>
+                        </div>
+                        <span class="term-title">sys-arch@kernel: ~ (bash / zsh)</span>
+                        <span class="badge-tag">ONLINE</span>
+                    </div>
+
+                    <div id="terminal-container" class="terminal-body">
+                        <div id="term-output"></div>
+                        <div class="term-input-row">
+                            <span class="term-prompt">sys-arch@kernel:~$</span>
+                            <input type="text" id="term-input" class="term-input" autocomplete="off" spellcheck="false" autofocus aria-label="Terminal Command Input">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact & Direct Consultation Section -->
+        <section id="contact" class="section">
+            <div class="container">
+                <div class="contact-card">
+                    <div>
+                        <span class="badge-tag">CONSULTATION & ADVISORY</span>
+                        <h2 class="section-title" style="margin-top: 0.75rem;" data-i18n="contact_title">Direct Engineering Communication</h2>
+                        <p class="text-dim" style="margin-bottom: 1.5rem;" data-i18n="contact_desc">Available for staff-level architecture advisory, algorithm optimization, and discrete mathematical research.</p>
+                        <button type="button" id="copy-email-btn" class="btn btn-primary" data-i18n="btn_copy_email">Copy Address</button>
+                    </div>
+
+                    <div class="contact-meta">
+                        <div class="contact-item">
+                            <span class="mono text-accent">📧</span>
+                            <div>
+                                <div class="text-dim text-sm" data-i18n="contact_email_lbl">Cryptographic / Electronic Mail</div>
+                                <strong class="mono">architect@systems.dev</strong>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <span class="mono text-emerald">🐙</span>
+                            <div>
+                                <div class="text-dim text-sm" data-i18n="contact_github_lbl">Source Code Repositories</div>
+                                <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="text-accent mono" style="text-decoration: none;">github.com/systems-architect</a>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <span class="mono text-purple">📍</span>
+                            <div>
+                                <div class="text-dim text-sm">Geographic Base</div>
+                                <span data-i18n="contact_location">Addis Ababa, ET / Global Remote</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>© 2026 Staff Software Engineer & Applied Computer Scientist. Zero-Fluff Architecture.</p>
+            <p class="footer-mono text-dim">Compiled with formal O(n) runtime guarantees • English | አማርኛ | Afaan Oromoo</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/algorithms.js"></script>
+    <script src="js/math.js"></script>
+    <script src="js/i18n.js"></script>
+    <script src="js/visualizer.js"></script>
+    <script src="js/terminal.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
