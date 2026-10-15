@@ -40,15 +40,21 @@ class SystemsTerminal {
         this.output.innerHTML = '';
     }
 
+    run(cmd) {
+        const clean = cmd.trim();
+        if (!clean) return;
+        this.history.push(clean);
+        this.historyIndex = this.history.length;
+        this.printLine(`<span class="term-prompt">sys-arch@kernel:~$</span> <span class="term-cmd">${this._escape(clean)}</span>`);
+        this.execute(clean);
+        if (this.input) this.input.value = '';
+    }
+
     _handleInputKey(e) {
         if (e.key === 'Enter') {
             const cmd = this.input.value.trim();
             if (cmd) {
-                this.history.push(cmd);
-                this.historyIndex = this.history.length;
-                this.printLine(`<span class="term-prompt">sys-arch@kernel:~$</span> <span class="term-cmd">${this._escape(cmd)}</span>`);
-                this.execute(cmd);
-                this.input.value = '';
+                this.run(cmd);
             }
         } else if (e.key === 'ArrowUp') {
             if (this.history.length > 0 && this.historyIndex > 0) {
@@ -174,7 +180,7 @@ class SystemsTerminal {
             const val = parseInt(args[1], 10);
             if (isNaN(val)) return this.printLine('Error: Value must be an integer.', 'text-rose');
             const { found, steps } = bst.search(val);
-            Visualizer.renderBST(bst, 'bst-container', found ? val : null);
+            Visualizer.renderBST(bst, 'bst-container', found ? val : null, steps);
             this.printLine(found ? `Key ${val} found! Search path: [${steps.join(' -> ')}]` : `Key ${val} not found in tree. Path: [${steps.join(' -> ')}]`, found ? 'text-emerald' : 'text-amber');
         } else if (sub === 'delete') {
             const val = parseInt(args[1], 10);
@@ -239,12 +245,12 @@ class SystemsTerminal {
             const k = args[1];
             const v = args[2] || 'payload';
             const evicted = cache.put(k, v);
-            Visualizer.renderLRUCache(cache, 'lru-container');
+            Visualizer.renderLRUCache(cache, 'lru-container', k);
             this.printLine(`Inserted (${k}: "${v}"). ${evicted ? `[Evicted LRU key: ${evicted}]` : ''}`, 'text-emerald');
         } else if (sub === 'get') {
             const k = args[1];
             const val = cache.get(k);
-            Visualizer.renderLRUCache(cache, 'lru-container');
+            Visualizer.renderLRUCache(cache, 'lru-container', k);
             this.printLine(val !== undefined ? `Cache HIT: key "${k}" => "${val}"` : `Cache MISS: key "${k}" not found.`, val !== undefined ? 'text-emerald' : 'text-amber');
         } else if (sub === 'status') {
             this.printLine(`LRU Cache: Size=${cache.map.size}/${cache.capacity}, Hits=${cache.metrics.hits}, Misses=${cache.metrics.misses}, Hit Ratio=${cache.getHitRatio()}`);

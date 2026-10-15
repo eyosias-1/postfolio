@@ -148,7 +148,7 @@ class BinarySearchTree {
     }
 
     /**
-     * In-Order Traversal (Sorted order for BST).
+     * In-Order Traversal (Sorted order for BST: Left -> Root -> Right).
      * Time Complexity: O(N)
      * Space Complexity: O(N)
      * @returns {number[]}
@@ -160,6 +160,42 @@ class BinarySearchTree {
             traverse(node.left);
             result.push(node.value);
             traverse(node.right);
+        };
+        traverse(this.root);
+        return result;
+    }
+
+    /**
+     * Pre-Order Traversal (Root -> Left -> Right).
+     * Time Complexity: O(N)
+     * Space Complexity: O(N)
+     * @returns {number[]}
+     */
+    preOrder() {
+        const result = [];
+        const traverse = (node) => {
+            if (!node) return;
+            result.push(node.value);
+            traverse(node.left);
+            traverse(node.right);
+        };
+        traverse(this.root);
+        return result;
+    }
+
+    /**
+     * Post-Order Traversal (Left -> Right -> Root).
+     * Time Complexity: O(N)
+     * Space Complexity: O(N)
+     * @returns {number[]}
+     */
+    postOrder() {
+        const result = [];
+        const traverse = (node) => {
+            if (!node) return;
+            traverse(node.left);
+            traverse(node.right);
+            result.push(node.value);
         };
         traverse(this.root);
         return result;

@@ -2,46 +2,92 @@
  * @file visualizer.js
  * @description Sleek Glassmorphic & Canvas-based Visualizers for Data Structures and Network Graphs
  * Handles dynamic rendering, interactive animations, and Big-O computational telemetry.
+ * Fully responsive across mobile, tablet, and desktop viewports.
  */
 
 'use strict';
 
 class Visualizer {
     // ========================================================================
-    // 1. BACKGROUND GRAPH MESH CANVAS
+    // 1. BACKGROUND GRAPH MESH CANVAS (Retina & Touch-Optimized)
     // ========================================================================
     static initBackgroundMesh(canvasId) {
         const canvas = document.getElementById(canvasId);
         if (!canvas) return;
         const ctx = canvas.getContext('2d');
 
-        let width = (canvas.width = window.innerWidth);
-        let height = (canvas.height = window.innerHeight);
+        let dpr = window.devicePixelRatio || 1;
+        let width = window.innerWidth;
+        let height = window.innerHeight;
 
-        const resize = () => {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
+        const setupCanvas = () => {
+            dpr = window.devicePixelRatio || 1;
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = width * dpr;
+            canvas.height = height * dpr;
+            canvas.style.width = `${width}px`;
+            canvas.style.height = `${height}px`;
+            ctx.scale(dpr, dpr);
         };
-        window.addEventListener('resize', resize);
+        setupCanvas();
 
-        const nodeCount = Math.min(Math.floor((width * height) / 20000), 75);
+        let resizeTimer;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(setupCanvas, 150);
+        });
+
+        // Dynamic node count scaled by screen density
+        const nodeCount = Math.min(Math.floor((width * height) / 18000), 70);
         const nodes = [];
 
         for (let i = 0; i < nodeCount; i++) {
             nodes.push({
                 x: Math.random() * width,
                 y: Math.random() * height,
-                vx: (Math.random() - 0.5) * 0.45,
-                vy: (Math.random() - 0.5) * 0.45,
-                radius: Math.random() * 1.5 + 1
+                vx: (Math.random() - 0.5) * 0.4,
+                vy: (Math.random() - 0.5) * 0.4,
+                radius: Math.random() * 1.5 + 1.2
             });
         }
 
-        let mouse = { x: -1000, y: -1000 };
+        let mouse = { x: -1000, y: -1000, active: false };
+
         window.addEventListener('mousemove', (e) => {
             mouse.x = e.clientX;
             mouse.y = e.clientY;
+            mouse.active = true;
+        }, { passive: true });
+
+        window.addEventListener('mouseleave', () => {
+            mouse.active = false;
+            mouse.x = -1000;
+            mouse.y = -1000;
         });
+
+        // Mobile touch interaction
+        window.addEventListener('touchstart', (e) => {
+            if (e.touches && e.touches[0]) {
+                mouse.x = e.touches[0].clientX;
+                mouse.y = e.touches[0].clientY;
+                mouse.active = true;
+            }
+        }, { passive: true });
+
+        window.addEventListener('touchmove', (e) => {
+            if (e.touches && e.touches[0]) {
+                mouse.x = e.touches[0].clientX;
+                mouse.y = e.touches[0].clientY;
+                mouse.active = true;
+            }
+        }, { passive: true });
+
+        window.addEventListener('touchend', () => {
+            mouse.active = false;
+            mouse.x = -1000;
+            mouse.y = -1000;
+        }, { passive: true });
 
         const animate = () => {
             ctx.clearRect(0, 0, width, height);
@@ -67,8 +113,8 @@ class Visualizer {
                     const dy = n.y - n2.y;
                     const dist = Math.hypot(dx, dy);
 
-                    if (dist < 130) {
-                        const alpha = (1 - dist / 130) * 0.22;
+                    if (dist < 125) {
+                        const alpha = (1 - dist / 125) * 0.22;
                         ctx.strokeStyle = `rgba(56, 189, 248, ${alpha})`;
                         ctx.lineWidth = 0.8;
                         ctx.beginPath();
@@ -78,18 +124,20 @@ class Visualizer {
                     }
                 }
 
-                // Connect to mouse pointer
-                const mdx = n.x - mouse.x;
-                const mdy = n.y - mouse.y;
-                const mdist = Math.hypot(mdx, mdy);
-                if (mdist < 160) {
-                    const alpha = (1 - mdist / 160) * 0.45;
-                    ctx.strokeStyle = `rgba(168, 85, 247, ${alpha})`;
-                    ctx.lineWidth = 1;
-                    ctx.beginPath();
-                    ctx.moveTo(n.x, n.y);
-                    ctx.lineTo(mouse.x, mouse.y);
-                    ctx.stroke();
+                // Connect to touch / mouse pointer
+                if (mouse.active) {
+                    const mdx = n.x - mouse.x;
+                    const mdy = n.y - mouse.y;
+                    const mdist = Math.hypot(mdx, mdy);
+                    if (mdist < 150) {
+                        const alpha = (1 - mdist / 150) * 0.4;
+                        ctx.strokeStyle = `rgba(168, 85, 247, ${alpha})`;
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(n.x, n.y);
+                        ctx.lineTo(mouse.x, mouse.y);
+                        ctx.stroke();
+                    }
                 }
             }
 
@@ -100,9 +148,9 @@ class Visualizer {
     }
 
     // ========================================================================
-    // 2. BST RENDERER (SVG/CANVAS)
+    // 2. BST RENDERER (Fully Responsive SVG)
     // ========================================================================
-    static renderBST(bst, containerId, highlightValue = null) {
+    static renderBST(bst, containerId, highlightValue = null, secondaryHighlights = []) {
         const container = document.getElementById(containerId);
         if (!container) return;
 
@@ -114,37 +162,47 @@ class Visualizer {
             return;
         }
 
-        const width = container.clientWidth || 700;
-        const height = Math.max(340, (bst._getHeight(bst.root) + 1) * 75);
+        const treeHeight = bst._getHeight(bst.root);
+        // Robust virtual coordinate system that prevents mobile node collision
+        const virtualWidth = Math.max(680, Math.pow(2, Math.min(treeHeight, 5)) * 45);
+        const virtualHeight = Math.max(340, (treeHeight + 1) * 72);
 
-        // Calculate node coordinates recursively
         const nodes = [];
         const edges = [];
 
         const assignCoords = (node, depth, leftBound, rightBound) => {
             if (!node) return;
             const x = (leftBound + rightBound) / 2;
-            const y = depth * 65 + 40;
+            const y = depth * 65 + 45;
 
-            nodes.push({ value: node.value, x, y, isHighlight: node.value === highlightValue });
+            const isPrimary = node.value === highlightValue;
+            const isSecondary = Array.isArray(secondaryHighlights) && secondaryHighlights.includes(node.value);
+
+            nodes.push({
+                value: node.value,
+                x,
+                y,
+                isPrimary,
+                isSecondary
+            });
 
             if (node.left) {
                 const childX = (leftBound + x) / 2;
-                const childY = (depth + 1) * 65 + 40;
+                const childY = (depth + 1) * 65 + 45;
                 edges.push({ x1: x, y1: y, x2: childX, y2: childY });
                 assignCoords(node.left, depth + 1, leftBound, x);
             }
             if (node.right) {
                 const childX = (x + rightBound) / 2;
-                const childY = (depth + 1) * 65 + 40;
+                const childY = (depth + 1) * 65 + 45;
                 edges.push({ x1: x, y1: y, x2: childX, y2: childY });
                 assignCoords(node.right, depth + 1, x, rightBound);
             }
         };
 
-        assignCoords(bst.root, 0, 20, width - 20);
+        assignCoords(bst.root, 0, 30, virtualWidth - 30);
 
-        let svgHtml = `<svg width="100%" height="${height}" viewBox="0 0 ${width} ${height}" class="bst-svg">`;
+        let svgHtml = `<svg width="100%" height="100%" viewBox="0 0 ${virtualWidth} ${virtualHeight}" preserveAspectRatio="xMidYMid meet" class="bst-svg">`;
 
         // Render edges
         edges.forEach(e => {
@@ -153,10 +211,13 @@ class Visualizer {
 
         // Render nodes
         nodes.forEach(n => {
-            const nodeClass = n.isHighlight ? 'tree-node highlight' : 'tree-node';
+            let nodeClass = 'tree-node';
+            if (n.isPrimary) nodeClass += ' highlight pulse';
+            else if (n.isSecondary) nodeClass += ' active-trace';
+
             svgHtml += `
-                <g class="${nodeClass}" transform="translate(${n.x}, ${n.y})">
-                    <circle r="20" class="node-circle" />
+                <g class="${nodeClass}" transform="translate(${n.x}, ${n.y})" data-val="${n.value}">
+                    <circle r="21" class="node-circle" />
                     <text dy="6" text-anchor="middle" class="node-text">${n.value}</text>
                 </g>`;
         });
@@ -166,33 +227,33 @@ class Visualizer {
     }
 
     // ========================================================================
-    // 3. GRAPH & DIJKSTRA VISUALIZER
+    // 3. GRAPH & DIJKSTRA VISUALIZER (Centered, Fully Scalable on Mobile)
     // ========================================================================
-    static renderGraph(graph, containerId, activePath = [], currentStep = null) {
+    static renderGraph(graph, containerId, activePath = [], currentStep = null, relaxedEdge = null) {
         const container = document.getElementById(containerId);
         if (!container) return;
 
-        const width = container.clientWidth || 700;
-        const height = 360;
+        // Standardized virtual coordinate plane ensuring zero clipping on mobile
+        const vWidth = 660;
+        const vHeight = 350;
 
-        // Predetermined elegant coordinates for standard 6-vertex network
         const nodePositions = {
-            'A': { x: 80, y: 180 },
-            'B': { x: 230, y: 70 },
-            'C': { x: 230, y: 290 },
-            'D': { x: 420, y: 70 },
-            'E': { x: 420, y: 290 },
-            'F': { x: 580, y: 180 }
+            'A': { x: 75,  y: 175 },
+            'B': { x: 220, y: 75  },
+            'C': { x: 220, y: 275 },
+            'D': { x: 440, y: 75  },
+            'E': { x: 440, y: 275 },
+            'F': { x: 585, y: 175 }
         };
 
-        let svg = `<svg width="100%" height="${height}" viewBox="0 0 ${width} ${height}" class="graph-svg">
+        let svg = `<svg width="100%" height="100%" viewBox="0 0 ${vWidth} ${vHeight}" preserveAspectRatio="xMidYMid meet" class="graph-svg">
             <defs>
-                <marker id="arrow" viewBox="0 0 10 10" refX="28" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                    <path d="M 0 0 L 10 5 L 0 10 z" fill="#64748b" />
-                </marker>
-                <marker id="arrow-active" viewBox="0 0 10 10" refX="28" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                    <path d="M 0 0 L 10 5 L 0 10 z" fill="#38bdf8" />
-                </marker>
+                <filter id="glow-emerald" x="-20%" y="-20%" width="140%" height="140%">
+                    <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#34d399" flood-opacity="0.8"/>
+                </filter>
+                <filter id="glow-cyan" x="-20%" y="-20%" width="140%" height="140%">
+                    <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#38bdf8" flood-opacity="0.8"/>
+                </filter>
             </defs>`;
 
         const renderedEdges = new Set();
@@ -211,13 +272,22 @@ class Visualizer {
                     activePath.some((node, idx) => idx < activePath.length - 1 && 
                         ((node === u && activePath[idx+1] === v) || (node === v && activePath[idx+1] === u)));
 
-                const lineClass = isPathEdge ? 'graph-edge active' : 'graph-edge';
+                const isRelaxed = relaxedEdge && (
+                    (relaxedEdge.from === u && relaxedEdge.to === v) || 
+                    (relaxedEdge.from === v && relaxedEdge.to === u)
+                );
+
+                let lineClass = 'graph-edge';
+                if (isPathEdge) lineClass += ' active';
+                if (isRelaxed) lineClass += ' relaxing';
+
                 const midX = (posU.x + posV.x) / 2;
-                const midY = (posU.y + posV.y) / 2 - 8;
+                const midY = (posU.y + posV.y) / 2 - 9;
 
                 svg += `
                     <line x1="${posU.x}" y1="${posU.y}" x2="${posV.x}" y2="${posV.y}" class="${lineClass}" />
-                    <text x="${midX}" y="${midY}" class="edge-weight">${weight}</text>`;
+                    <rect x="${midX - 12}" y="${midY - 10}" width="24" height="16" rx="4" class="weight-bg" />
+                    <text x="${midX}" y="${midY + 2}" class="edge-weight">${weight}</text>`;
             }
         }
 
@@ -226,10 +296,13 @@ class Visualizer {
             const pos = nodePositions[vertex] || { x: 150, y: 150 };
             const isPathNode = activePath.includes(vertex);
             const isCurrent = currentStep && currentStep.vertex === vertex;
-            const nodeClass = isCurrent ? 'graph-node visiting' : isPathNode ? 'graph-node in-path' : 'graph-node';
+            
+            let nodeClass = 'graph-node';
+            if (isCurrent) nodeClass += ' visiting';
+            else if (isPathNode) nodeClass += ' in-path';
 
             svg += `
-                <g class="${nodeClass}" transform="translate(${pos.x}, ${pos.y})">
+                <g class="${nodeClass}" transform="translate(${pos.x}, ${pos.y})" data-vertex="${vertex}" style="cursor: pointer;">
                     <circle r="22" class="graph-node-circle" />
                     <text dy="6" text-anchor="middle" class="graph-node-text">${vertex}</text>
                 </g>`;
@@ -240,9 +313,9 @@ class Visualizer {
     }
 
     // ========================================================================
-    // 4. LRU CACHE VISUALIZER
+    // 4. LRU CACHE VISUALIZER (Touch-Friendly Pipeline)
     // ========================================================================
-    static renderLRUCache(cache, containerId) {
+    static renderLRUCache(cache, containerId, activeKey = null) {
         const container = document.getElementById(containerId);
         if (!container) return;
 
@@ -258,13 +331,14 @@ class Visualizer {
             html += `<div class="lru-empty mono">Cache Empty (Size: 0 / ${cache.capacity})</div>`;
         } else {
             entries.forEach((item, idx) => {
+                const isActive = item.key === activeKey;
                 html += `
                     <div class="lru-link">⇄</div>
-                    <div class="lru-node-card">
+                    <div class="lru-node-card ${isActive ? 'card-pulse' : ''}" data-key="${item.key}">
                         <span class="lru-rank">#${idx + 1}</span>
                         <div class="lru-key-val">
                             <span class="key mono">${item.key}</span>
-                            <span class="val mono">${JSON.stringify(item.value)}</span>
+                            <span class="val mono">${typeof item.value === 'object' ? JSON.stringify(item.value) : item.value}</span>
                         </div>
                     </div>`;
             });
@@ -282,7 +356,7 @@ class Visualizer {
     }
 
     // ========================================================================
-    // 5. CIRCULAR RING BUFFER VISUALIZER
+    // 5. CIRCULAR RING BUFFER VISUALIZER (Adaptive Responsive Grid)
     // ========================================================================
     static renderRingBuffer(buffer, containerId) {
         const container = document.getElementById(containerId);
@@ -301,11 +375,11 @@ class Visualizer {
             html += `
                 <div class="buffer-slot ${filledClass}">
                     <div class="slot-header">
-                        <span class="slot-idx">Slot [${slot.index}]</span>
+                        <span class="slot-idx mono">[${slot.index}]</span>
                         <div class="slot-cursors">${cursorBadges}</div>
                     </div>
                     <div class="slot-payload mono">
-                        ${slot.value !== null ? slot.value : '— NULL —'}
+                        ${slot.value !== null ? slot.value : '<span class="text-dim">NULL</span>'}
                     </div>
                 </div>`;
         });

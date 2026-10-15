@@ -34,6 +34,10 @@ const TRANSLATIONS = {
         stat_4_val: "Zero",
         stat_4_lbl: "Allocations on Hot Paths",
 
+        tab_trees: "Data Structures (BST)",
+        tab_graphs: "Graph Theory & Dijkstra",
+        tab_systems_arch: "Systems Cache & Ring Buffer",
+
         algo_tab_title: "Interactive Algorithmic Laboratory",
         algo_tab_desc: "Explore verified algorithmic routines with real-time state visualization and Big-O runtime profiling.",
         algo_bst_title: "Binary Search Tree (BST) & Invariants",
@@ -45,6 +49,12 @@ const TRANSLATIONS = {
         algo_ring_title: "Low-Level: Circular Ring Buffer",
         algo_ring_desc: "Bounded zero-copy memory ring buffer with atomic cursor wrapping.",
 
+        btn_random_node: "Random Key",
+        btn_inorder: "In-Order",
+        btn_preorder: "Pre-Order",
+        btn_postorder: "Post-Order",
+        btn_animate_dijkstra: "Animate Steps",
+
         math_tab_title: "Applied Mathematics & Discrete Logic",
         math_tab_desc: "Computational engine for combinatorics, topological invariants, and propositional truth tables.",
         math_comb_title: "Combinatorics & Probability Engine",
@@ -52,7 +62,8 @@ const TRANSLATIONS = {
         math_logic_title: "Propositional Logic Truth Table Synthesizer",
         math_logic_desc: "Parses propositional statements, verifies tautologies, contradictions, and models all 2^n assignments.",
         math_graph_title: "Topological Invariants & Euler Planarity",
-        math_graph_desc: "Verification of Euler's polyhedral formula V - E + F = 2 and the Handshaking Lemma.",
+        math_graph_desc: "Interactive verification of Euler's polyhedral formula V - E + F = 2 and Handshaking Lemma.",
+        btn_check_invariants: "Verify Invariants",
 
         sys_tab_title: "Systems Architecture & Design Patterns",
         sys_tab_desc: "Architectural blueprints for distributed consensus, high-throughput stream processing, and memory safety.",
@@ -108,6 +119,10 @@ const TRANSLATIONS = {
         stat_4_val: "ዜሮ",
         stat_4_lbl: "በዋናው መስመር ላይ ተጨማሪ ሜሞሪ ማባከን የለም",
 
+        tab_trees: "የዳታ መዋቅሮች (BST)",
+        tab_graphs: "ግራፍ ቲዎሪ እና ዳይክስትራ",
+        tab_systems_arch: "ሲስተምስ ካሽ እና ሪንግ ባፈር",
+
         algo_tab_title: "ተግባራዊ የአልጎሪዝም ላብራቶሪ",
         algo_tab_desc: "ትክክለኛነታቸው የተረጋገጡ አልጎሪዝሞችን በቀጥታ እንቅስቃሴ እና Big-O ፍጥነት ይመልከቱ።",
         algo_bst_title: "ባይነሪ ሰርች ትሪ (BST) እና መዋቅሮች",
@@ -119,6 +134,12 @@ const TRANSLATIONS = {
         algo_ring_title: "ዝቅተኛ-ደረጃ: ክብ ቋት (Circular Ring Buffer)",
         algo_ring_desc: "ወሰን ያለው የሜሞሪ ባፈር ያለ ትርፍ ቅጂ በትክክለኛ አሰራር።",
 
+        btn_random_node: "የዘፈቀደ ቁጥር",
+        btn_inorder: "በቅደም-ተከተል",
+        btn_preorder: "ቅድመ-ትዕዛዝ",
+        btn_postorder: "ድህረ-ትዕዛዝ",
+        btn_animate_dijkstra: "በደረጃ አሳይ",
+
         math_tab_title: "ተግባራዊ ሂሳብ እና ዲስክሪት ሎጂክ",
         math_tab_desc: "የኮምቢናቶሪክስ፣ የቶፖሎጂካል ህጎች እና የሎጂክ እውነት ሠንጠረዥ ስሌት ማሽን።",
         math_comb_title: "ኮምቢናቶሪክስ እና ፕሮባቢሊቲ ሞተር",
@@ -127,6 +148,7 @@ const TRANSLATIONS = {
         math_logic_desc: "የሎጂክ አረፍተ-ነገሮችን በመተንተን ሁልጊዜ እውነት (Tautology) ወይም ውሸት መሆኑን ያረጋግጣል።",
         math_graph_title: "የቶፖሎጂ እና የኦይለር ፕላናር ህግ",
         math_graph_desc: "የኦይለር ፎርሙላ V - E + F = 2 እና የሃንድሼኪንግ ሌማ ማረጋገጫ።",
+        btn_check_invariants: "ህጎቹን አረጋግጥ",
 
         sys_tab_title: "የሲስተም አርክቴክቸር እና ንድፍ",
         sys_tab_desc: "የተከፋፈሉ ሲስተሞች ስምምነት እና ፈጣን የዳታ ዝውውር አርክቴክቸር።",
@@ -182,6 +204,10 @@ const TRANSLATIONS = {
         stat_4_val: "Zero",
         stat_4_lbl: "Qisaasama Meemorii Hin Qabu",
 
+        tab_trees: "Caasaalee Deetaa (BST)",
+        tab_graphs: "Tiyoorii Giraafii fi Dijkstra",
+        tab_systems_arch: "Kaashii Sirnaa fi Riiŋgii",
+
         algo_tab_title: "Kuusaa Algoorizimii Qabatamaa",
         algo_tab_desc: "Algoorizimoota mirkanaa'an sochii qabatamaa fi saffisa Big-O waliin qoradhaa.",
         algo_bst_title: "Muka Barbaacha Baayinarii (BST)",
@@ -193,6 +219,12 @@ const TRANSLATIONS = {
         algo_ring_title: "Sadarkaa Gadii: Baafara Geengoo (Circular Ring Buffer)",
         algo_ring_desc: "Baafara meemorii daanga'aa garagalcha dabalataa hin qabne.",
 
+        btn_random_node: "Lakkoofsa Eeggannoo",
+        btn_inorder: "Tartiibaan",
+        btn_preorder: "Dursaa",
+        btn_postorder: "Booddee",
+        btn_animate_dijkstra: "Tartiibaan Agarsiisi",
+
         math_tab_title: "Herrega Qabatamaa fi Loojikii Diskiiriitii",
         math_tab_desc: "Mootora shallaggii kombinaatiriiksii, seerota topooloojii fi gabatee dhugaa loojikii.",
         math_comb_title: "Mootora Kombinaatiriiksii fi Carraa",
@@ -201,6 +233,7 @@ const TRANSLATIONS = {
         math_logic_desc: "Himoota loojikii qaaccessuun Tautology ykn Contradiction ta'uu mirkaneessa.",
         math_graph_title: "Seera Topooloojii fi Pilaanaarii Euler",
         math_graph_desc: "Mirkaneessa foormulaa Euler V - E + F = 2 fi seera Handshaking Lemma.",
+        btn_check_invariants: "Seerota Mirkaneessi",
 
         sys_tab_title: "Arkiteekchara Sirnaa fi Dizaayinii",
         sys_tab_desc: "Waliigaltee sirnoota faca'anii fi daddabarsa deetaa saffisa olaanaa.",

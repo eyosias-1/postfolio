@@ -4,27 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Portfolio of an elite Staff Software Engineer and Applied Computer Scientist. Algorithms, Discrete Math, Distributed Systems, and Low-Latency Architecture.">
+    <meta name="theme-color" content="#07090e">
     <title data-i18n="site_title">Staff Systems Architect & Applied Computer Scientist</title>
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <!-- Accessibility Skip Link -->
+    <a href="#about" class="skip-link">Skip to main content</a>
+
     <!-- Background Graph Mesh Canvas -->
-    <canvas id="mesh-canvas"></canvas>
+    <canvas id="mesh-canvas" aria-hidden="true"></canvas>
 
     <!-- Navigation Header -->
-    <header class="navbar">
+    <header class="navbar" id="navbar">
         <div class="container nav-container">
-            <a href="#" class="nav-brand">
+            <a href="#about" class="nav-brand" aria-label="Systems Architect Home">
                 <span class="brand-icon mono">λ</span>
                 <span class="brand-title">SYSTEMS.ARCH</span>
                 <span class="brand-tag mono">STAFF L7</span>
             </a>
 
-            <nav>
+            <!-- Mobile Hamburger Toggle -->
+            <button type="button" class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-menu">
+                <span class="hamburger-box">
+                    <span class="hamburger-inner"></span>
+                </span>
+            </button>
+
+            <!-- Navigation Links -->
+            <nav id="nav-menu" class="nav-menu" aria-label="Main Navigation">
                 <ul class="nav-links">
                     <li><a href="#about" class="nav-link" data-i18n="nav_about">Identity</a></li>
                     <li><a href="#lab" class="nav-link" data-i18n="nav_algorithms">Algorithms Lab</a></li>
@@ -38,16 +50,21 @@
 
             <!-- Multilingual Selector: English, Amharic, Afaan Oromoo -->
             <div class="lang-switcher" aria-label="Language selector">
-                <button type="button" class="lang-btn active" data-lang="en">EN</button>
-                <button type="button" class="lang-btn" data-lang="am">አማ</button>
-                <button type="button" class="lang-btn" data-lang="om">ORO</button>
+                <button type="button" class="lang-btn active" data-lang="en" title="English">EN</button>
+                <button type="button" class="lang-btn" data-lang="am" title="Amharic / አማርኛ">አማ</button>
+                <button type="button" class="lang-btn" data-lang="om" title="Afaan Oromoo">ORO</button>
             </div>
         </div>
+        <!-- Backdrop overlay for mobile drawer -->
+        <div class="nav-overlay" id="nav-overlay" aria-hidden="true"></div>
     </header>
 
-    <main>
+    <main id="main-content">
         <!-- Hero Section -->
         <section id="about" class="hero-section">
+            <div class="glow-orb glow-orb-1" aria-hidden="true"></div>
+            <div class="glow-orb glow-orb-2" aria-hidden="true"></div>
+            
             <div class="container">
                 <div class="hero-content">
                     <div class="hero-badge-pill">
@@ -65,27 +82,34 @@
                     </p>
 
                     <div class="hero-actions">
-                        <a href="#lab" class="btn btn-primary" data-i18n="hero_btn_lab">Launch Algorithms Lab</a>
+                        <a href="#lab" class="btn btn-primary" data-i18n="hero_btn_lab">
+                            <span>Launch Algorithms Lab</span>
+                            <span class="btn-arrow" aria-hidden="true">➔</span>
+                        </a>
                         <a href="#terminal" class="btn btn-secondary mono" data-i18n="hero_btn_cli">&gt;_ Open Systems Terminal</a>
-                        <a href="#contact" class="btn btn-secondary" data-i18n="hero_btn_contact">Direct Communication</a>
+                        <a href="#contact" class="btn btn-tertiary" data-i18n="hero_btn_contact">Direct Communication</a>
                     </div>
                 </div>
 
                 <!-- Systems Telemetry KPI Grid -->
                 <div class="telemetry-grid">
                     <div class="glass-card stat-card">
+                        <div class="stat-icon-wrap" aria-hidden="true">⚡</div>
                         <span class="stat-value mono" data-i18n="stat_1_val">O(1)</span>
                         <span class="stat-label" data-i18n="stat_1_lbl">Lock-Free LRU Retrieval</span>
                     </div>
                     <div class="glass-card stat-card">
+                        <div class="stat-icon-wrap" aria-hidden="true">⏱</div>
                         <span class="stat-value mono" data-i18n="stat_2_val">&lt; 50µs</span>
                         <span class="stat-label" data-i18n="stat_2_lbl">Ring Buffer Pipeline P99</span>
                     </div>
                     <div class="glass-card stat-card">
+                        <div class="stat-icon-wrap" aria-hidden="true">🛡</div>
                         <span class="stat-value mono" data-i18n="stat_3_val">100%</span>
                         <span class="stat-label" data-i18n="stat_3_lbl">Formal State Verification</span>
                     </div>
                     <div class="glass-card stat-card">
+                        <div class="stat-icon-wrap" aria-hidden="true">🧊</div>
                         <span class="stat-value mono" data-i18n="stat_4_val">Zero</span>
                         <span class="stat-label" data-i18n="stat_4_lbl">Allocations on Hot Paths</span>
                     </div>
@@ -97,15 +121,16 @@
         <section id="lab" class="section">
             <div class="container">
                 <div class="section-header">
+                    <div class="section-tag mono">LABORATORY ENV // v4.2</div>
                     <h2 class="section-title" data-i18n="algo_tab_title">Interactive Algorithmic Laboratory</h2>
                     <p class="section-subtitle" data-i18n="algo_tab_desc">Explore verified algorithmic routines with real-time state visualization and Big-O runtime profiling.</p>
                 </div>
 
                 <!-- Tab Navigation Bar -->
-                <div class="lab-tabs" role="tablist">
-                    <button type="button" class="lab-tab-btn active" data-tab="tab-trees" role="tab">Data Structures (BST)</button>
-                    <button type="button" class="lab-tab-btn" data-tab="tab-graphs" role="tab">Graph Theory & Dijkstra</button>
-                    <button type="button" class="lab-tab-btn" data-tab="tab-systems-arch" role="tab">Systems Cache & Ring Buffer</button>
+                <div class="lab-tabs" role="tablist" aria-label="Algorithmic Modules">
+                    <button type="button" class="lab-tab-btn active" data-tab="tab-trees" role="tab" aria-selected="true" data-i18n="tab_trees">Data Structures (BST)</button>
+                    <button type="button" class="lab-tab-btn" data-tab="tab-graphs" role="tab" aria-selected="false" data-i18n="tab_graphs">Graph Theory & Dijkstra</button>
+                    <button type="button" class="lab-tab-btn" data-tab="tab-systems-arch" role="tab" aria-selected="false" data-i18n="tab_systems_arch">Systems Cache & Ring Buffer</button>
                 </div>
 
                 <!-- Tab 1: Binary Search Tree -->
@@ -120,15 +145,24 @@
                         </div>
 
                         <div class="control-bar">
-                            <input type="number" id="bst-val-input" class="input-field input-num" placeholder="Key (int)" aria-label="BST Key Input">
-                            <button type="button" id="bst-insert-btn" class="btn-ctrl">+ Insert</button>
-                            <button type="button" id="bst-search-btn" class="btn-ctrl">🔍 Search</button>
-                            <button type="button" id="bst-delete-btn" class="btn-ctrl btn-danger">✕ Delete</button>
-                            <button type="button" id="bst-clear-btn" class="btn-ctrl">Clear Tree</button>
+                            <div class="input-action-group">
+                                <input type="number" id="bst-val-input" class="input-field input-num" placeholder="Key (int)" aria-label="BST Key Input">
+                                <button type="button" id="bst-insert-btn" class="btn-ctrl btn-accent">+ Insert</button>
+                                <button type="button" id="bst-search-btn" class="btn-ctrl">🔍 Search</button>
+                            </div>
+                            
+                            <div class="btn-action-group">
+                                <button type="button" id="bst-random-btn" class="btn-ctrl" data-i18n="btn_random_node">🎲 Random</button>
+                                <button type="button" id="bst-inorder-btn" class="btn-ctrl" data-i18n="btn_inorder">In-Order</button>
+                                <button type="button" id="bst-preorder-btn" class="btn-ctrl" data-i18n="btn_preorder">Pre-Order</button>
+                                <button type="button" id="bst-postorder-btn" class="btn-ctrl" data-i18n="btn_postorder">Post-Order</button>
+                                <button type="button" id="bst-delete-btn" class="btn-ctrl btn-danger">✕ Delete</button>
+                                <button type="button" id="bst-clear-btn" class="btn-ctrl btn-ghost">Clear</button>
+                            </div>
                         </div>
 
                         <div id="bst-container" class="visual-viewport" aria-label="Binary Search Tree Visualizer"></div>
-                        <div id="bst-telemetry" class="telemetry-tray mono"></div>
+                        <div id="bst-telemetry" class="telemetry-tray mono" aria-live="polite"></div>
                     </div>
                 </div>
 
@@ -144,26 +178,39 @@
                         </div>
 
                         <div class="control-bar">
-                            <label for="graph-start" class="text-dim text-sm">Source:</label>
-                            <select id="graph-start" class="select-field">
-                                <option value="A">Vertex A</option>
-                                <option value="B">Vertex B</option>
-                                <option value="C">Vertex C</option>
-                            </select>
+                            <div class="selector-pair">
+                                <label for="graph-start" class="text-dim text-sm">Source:</label>
+                                <select id="graph-start" class="select-field" aria-label="Start Vertex">
+                                    <option value="A" selected>Vertex A</option>
+                                    <option value="B">Vertex B</option>
+                                    <option value="C">Vertex C</option>
+                                    <option value="D">Vertex D</option>
+                                    <option value="E">Vertex E</option>
+                                    <option value="F">Vertex F</option>
+                                </select>
+                            </div>
 
-                            <label for="graph-end" class="text-dim text-sm">Target:</label>
-                            <select id="graph-end" class="select-field">
-                                <option value="F" selected>Vertex F</option>
-                                <option value="D">Vertex D</option>
-                                <option value="E">Vertex E</option>
-                            </select>
+                            <div class="selector-pair">
+                                <label for="graph-end" class="text-dim text-sm">Target:</label>
+                                <select id="graph-end" class="select-field" aria-label="Target Vertex">
+                                    <option value="A">Vertex A</option>
+                                    <option value="B">Vertex B</option>
+                                    <option value="C">Vertex C</option>
+                                    <option value="D">Vertex D</option>
+                                    <option value="E">Vertex E</option>
+                                    <option value="F" selected>Vertex F</option>
+                                </select>
+                            </div>
 
-                            <button type="button" id="graph-run-btn" class="btn-ctrl">Compute Shortest Path</button>
-                            <button type="button" id="graph-topo-btn" class="btn-ctrl">Kahn's TopoSort</button>
+                            <div class="btn-action-group">
+                                <button type="button" id="graph-run-btn" class="btn-ctrl btn-accent">Compute Path</button>
+                                <button type="button" id="graph-animate-btn" class="btn-ctrl" data-i18n="btn_animate_dijkstra">⚡ Animate Steps</button>
+                                <button type="button" id="graph-topo-btn" class="btn-ctrl">Kahn's TopoSort</button>
+                            </div>
                         </div>
 
                         <div id="graph-container" class="visual-viewport" aria-label="Graph Network Visualizer"></div>
-                        <div id="graph-telemetry" class="telemetry-tray mono"></div>
+                        <div id="graph-telemetry" class="telemetry-tray mono" aria-live="polite"></div>
                     </div>
                 </div>
 
@@ -181,10 +228,11 @@
                             </div>
 
                             <div class="control-bar">
-                                <input type="text" id="lru-key-input" class="input-field" placeholder="Key" style="width: 100px;">
-                                <input type="text" id="lru-val-input" class="input-field" placeholder="Value" style="width: 120px;">
-                                <button type="button" id="lru-put-btn" class="btn-ctrl">Put(k, v)</button>
+                                <input type="text" id="lru-key-input" class="input-field" placeholder="Key" style="width: 90px;" aria-label="Cache Key">
+                                <input type="text" id="lru-val-input" class="input-field" placeholder="Value" style="width: 110px;" aria-label="Cache Value">
+                                <button type="button" id="lru-put-btn" class="btn-ctrl btn-accent">Put(k, v)</button>
                                 <button type="button" id="lru-get-btn" class="btn-ctrl">Get(k)</button>
+                                <button type="button" id="lru-sample-btn" class="btn-ctrl">Sample Put</button>
                             </div>
 
                             <div id="lru-metrics" class="lru-metrics-bar"></div>
@@ -202,8 +250,10 @@
                             </div>
 
                             <div class="control-bar">
-                                <button type="button" id="ring-push-btn" class="btn-ctrl">+ Enqueue Packet</button>
-                                <button type="button" id="ring-pop-btn" class="btn-ctrl btn-danger">- Dequeue Oldest</button>
+                                <button type="button" id="ring-push-btn" class="btn-ctrl btn-accent">+ Enqueue</button>
+                                <button type="button" id="ring-pop-btn" class="btn-ctrl btn-danger">- Dequeue</button>
+                                <button type="button" id="ring-fill-btn" class="btn-ctrl">Fill Buffer</button>
+                                <button type="button" id="ring-clear-btn" class="btn-ctrl btn-ghost">Flush</button>
                             </div>
 
                             <div id="ring-telemetry" class="telemetry-tray mono" style="margin-bottom: 1rem;">Buffer ready. Slots: 8.</div>
@@ -218,6 +268,7 @@
         <section id="math" class="section">
             <div class="container">
                 <div class="section-header">
+                    <div class="section-tag mono">FORMAL PROOFS // DISCRETE SUITE</div>
                     <h2 class="section-title" data-i18n="math_tab_title">Applied Mathematics & Discrete Logic</h2>
                     <p class="section-subtitle" data-i18n="math_tab_desc">Computational engine for combinatorics, topological invariants, and propositional truth tables.</p>
                 </div>
@@ -230,15 +281,15 @@
                                 <h3 data-i18n="math_comb_title">Combinatorics & Probability Engine</h3>
                                 <p class="text-dim text-sm" data-i18n="math_comb_desc">High-precision calculations for factorials, permutations P(n,r), combinations C(n,r).</p>
                             </div>
-                            <span class="badge-tag">BigInt Arbitrary Precision</span>
+                            <span class="badge-tag">BigInt Precision</span>
                         </div>
 
                         <div class="control-bar">
                             <label for="math-n" class="text-dim mono">n = </label>
-                            <input type="number" id="math-n" class="input-field input-num" value="10" min="0" max="60">
+                            <input type="number" id="math-n" class="input-field input-num" value="10" min="0" max="60" aria-label="N value">
                             <label for="math-r" class="text-dim mono">r = </label>
-                            <input type="number" id="math-r" class="input-field input-num" value="4" min="0" max="60">
-                            <button type="button" id="math-calc-btn" class="btn-ctrl">Compute Rigorous Values</button>
+                            <input type="number" id="math-r" class="input-field input-num" value="4" min="0" max="60" aria-label="R value">
+                            <button type="button" id="math-calc-btn" class="btn-ctrl btn-accent">Compute Values</button>
                         </div>
 
                         <div id="math-results" class="visual-viewport">
@@ -274,11 +325,18 @@
                         </div>
 
                         <div class="control-bar">
-                            <input type="text" id="logic-expr-input" class="input-field" value="(A AND B) OR NOT C" style="flex: 1;">
-                            <button type="button" id="logic-eval-btn" class="btn-ctrl">Generate Truth Table</button>
+                            <input type="text" id="logic-expr-input" class="input-field" value="(A AND B) OR NOT C" style="flex: 1;" aria-label="Propositional formula">
+                            <button type="button" id="logic-eval-btn" class="btn-ctrl btn-accent">Generate Table</button>
                         </div>
 
-                        <div id="logic-table-container" class="visual-viewport" style="overflow-y: auto; max-height: 320px;">
+                        <div class="preset-pills-row">
+                            <span class="text-dim text-xs mono">Presets:</span>
+                            <button type="button" class="preset-pill" data-expr="(A AND B) OR NOT C">(A ∧ B) ∨ ¬C</button>
+                            <button type="button" class="preset-pill" data-expr="A -> (B -> A)">A → (B → A)</button>
+                            <button type="button" class="preset-pill" data-expr="(A XOR B) <-> (NOT A XOR NOT B)">(A ⊕ B) ↔ (¬A ⊕ ¬B)</button>
+                        </div>
+
+                        <div id="logic-table-container" class="visual-viewport" style="overflow-y: auto; max-height: 280px;">
                             <div class="truth-table-wrapper">
                                 <div class="classification-badge contingency">
                                     Classification: <strong>Contingency</strong> (Valid Models: 5/8)
@@ -304,6 +362,91 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- Topological Invariants & Euler Planarity Module -->
+                    <div class="module-card full-width-card">
+                        <div class="card-top">
+                            <div>
+                                <h3 data-i18n="math_graph_title">Topological Invariants & Euler Planarity</h3>
+                                <p class="text-dim text-sm" data-i18n="math_graph_desc">Interactive verification of Euler's polyhedral formula V - E + F = 2 and Handshaking Lemma.</p>
+                            </div>
+                            <span class="badge-tag">Euler Characteristic χ</span>
+                        </div>
+
+                        <div class="control-bar">
+                            <label for="euler-v" class="text-dim mono">V = </label>
+                            <input type="number" id="euler-v" class="input-field input-num" value="6" min="1" max="100" aria-label="Vertices count">
+                            <label for="euler-e" class="text-dim mono">E = </label>
+                            <input type="number" id="euler-e" class="input-field input-num" value="9" min="0" max="300" aria-label="Edges count">
+                            <label for="euler-f" class="text-dim mono">F = </label>
+                            <input type="number" id="euler-f" class="input-field input-num" value="5" min="1" max="200" aria-label="Faces count">
+                            <button type="button" id="euler-verify-btn" class="btn-ctrl btn-accent" data-i18n="btn_check_invariants">Verify Invariants</button>
+                        </div>
+
+                        <div id="euler-results" class="visual-viewport" style="min-height: 140px;">
+                            <div class="math-result-card">
+                                <div class="math-result-item">
+                                    <span class="label mono">Euler Formula: V - E + F</span>
+                                    <span class="value text-emerald mono">6 - 9 + 5 = 2 (Valid)</span>
+                                </div>
+                                <div class="math-result-item">
+                                    <span class="label mono">Planar Bound E ≤ 3V - 6</span>
+                                    <span class="value text-cyan mono">9 ≤ 12 (Planar)</span>
+                                </div>
+                                <div class="math-result-item">
+                                    <span class="label mono">Euler Characteristic χ</span>
+                                    <span class="value text-purple mono">χ = 2 (Sphere S²)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Systems Architecture Blueprints Section -->
+        <section id="systems" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-tag mono">SYSTEMS BLUEPRINTS // L7 ARCH</div>
+                    <h2 class="section-title" data-i18n="sys_tab_title">Systems Architecture & Design Patterns</h2>
+                    <p class="section-subtitle" data-i18n="sys_tab_desc">Architectural blueprints for distributed consensus, high-throughput stream processing, and memory safety.</p>
+                </div>
+
+                <div class="module-grid">
+                    <!-- Raft Consensus Card -->
+                    <div class="module-card">
+                        <div class="card-top">
+                            <span class="badge-tag">CONSENSUS STATE MACHINE</span>
+                            <span class="mono text-emerald text-sm">O(1) Append</span>
+                        </div>
+                        <h3 style="margin: 0.5rem 0;" data-i18n="sys_raft_title">Distributed Consensus Engine (Raft)</h3>
+                        <p class="text-dim text-sm" style="margin-bottom: 1.25rem;" data-i18n="sys_raft_desc">
+                            State machine replication with leader election, log compaction, and guaranteed safety invariants.
+                        </p>
+                        <div class="arch-spec-box mono">
+                            <div>• Leader Election: Randomized election timeouts (150-300ms)</div>
+                            <div>• Safety Guarantee: Leader completeness & Log matching invariant</div>
+                            <div>• Throughput: Bounded commit latency with batched fsync</div>
+                        </div>
+                    </div>
+
+                    <!-- Event Broker Card -->
+                    <div class="module-card">
+                        <div class="card-top">
+                            <span class="badge-tag">STREAM BROKER</span>
+                            <span class="mono text-cyan text-sm">&gt; 1.2M msg/sec</span>
+                        </div>
+                        <h3 style="margin: 0.5rem 0;" data-i18n="sys_bus_title">Zero-Copy Asynchronous Event Broker</h3>
+                        <p class="text-dim text-sm" style="margin-bottom: 1.25rem;" data-i18n="sys_bus_desc">
+                            High-throughput messaging achieving > 1.2M messages/sec with non-blocking memory buffers.
+                        </p>
+                        <div class="arch-spec-box mono">
+                            <div>• Concurrency: Lock-free ring buffer with memory barriers</div>
+                            <div>• Cache Alignment: False sharing avoidance on 64-byte boundaries</div>
+                            <div>• P99 Latency: Sub-50µs sustained pipeline execution</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -312,6 +455,7 @@
         <section id="projects" class="section">
             <div class="container">
                 <div class="section-header">
+                    <div class="section-tag mono">FLAGSHIP REPOSITORIES</div>
                     <h2 class="section-title" data-i18n="proj_tab_title">Selected Technical Projects</h2>
                     <p class="section-subtitle" data-i18n="proj_tab_desc">Production deployments demonstrating systems optimization and mathematical modeling.</p>
                 </div>
@@ -369,26 +513,40 @@
         <section id="terminal" class="section">
             <div class="container">
                 <div class="section-header">
+                    <div class="section-tag mono">CLI INTERFACE // SHELL v4.19</div>
                     <h2 class="section-title" data-i18n="cli_title">Staff Systems Interactive Terminal</h2>
                     <p class="section-subtitle" data-i18n="cli_hint">Type 'help' to inspect system commands, 'whoami' for background, or 'lang [en|am|om]' to switch dialects.</p>
                 </div>
 
+                <!-- Quick Action Command Chips -->
+                <div class="terminal-chips-row" aria-label="Terminal command shortcuts">
+                    <span class="text-dim text-xs mono">Quick Exec:</span>
+                    <button type="button" class="term-chip" data-cmd="help">help</button>
+                    <button type="button" class="term-chip" data-cmd="whoami">whoami</button>
+                    <button type="button" class="term-chip" data-cmd="skills">skills</button>
+                    <button type="button" class="term-chip" data-cmd="dijkstra A F">dijkstra A F</button>
+                    <button type="button" class="term-chip" data-cmd="tree inorder">tree inorder</button>
+                    <button type="button" class="term-chip" data-cmd="cache status">cache status</button>
+                    <button type="button" class="term-chip" data-cmd="clear">clear</button>
+                </div>
+
                 <div class="terminal-window">
                     <div class="terminal-header">
-                        <div class="term-controls">
+                        <div class="term-controls" aria-hidden="true">
                             <span class="term-dot close"></span>
                             <span class="term-dot min"></span>
                             <span class="term-dot max"></span>
                         </div>
                         <span class="term-title">sys-arch@kernel: ~ (bash / zsh)</span>
-                        <span class="badge-tag">ONLINE</span>
+                        <span class="badge-tag status-online">● ONLINE</span>
                     </div>
 
-                    <div id="terminal-container" class="terminal-body">
+                    <div id="terminal-container" class="terminal-body" tabindex="0" role="region" aria-label="Terminal Output">
                         <div id="term-output"></div>
                         <div class="term-input-row">
                             <span class="term-prompt">sys-arch@kernel:~$</span>
                             <input type="text" id="term-input" class="term-input" autocomplete="off" spellcheck="false" autofocus aria-label="Terminal Command Input">
+                            <button type="button" id="term-run-btn" class="term-run-btn" title="Run Command">↵</button>
                         </div>
                     </div>
                 </div>
@@ -408,26 +566,26 @@
 
                     <div class="contact-meta">
                         <div class="contact-item">
-                            <span class="mono text-accent">📧</span>
+                            <span class="contact-icon text-accent" aria-hidden="true">📧</span>
                             <div>
                                 <div class="text-dim text-sm" data-i18n="contact_email_lbl">Cryptographic / Electronic Mail</div>
-                                <strong class="mono">architect@systems.dev</strong>
+                                <strong class="mono contact-link">architect@systems.dev</strong>
                             </div>
                         </div>
 
                         <div class="contact-item">
-                            <span class="mono text-emerald">🐙</span>
+                            <span class="contact-icon text-emerald" aria-hidden="true">🐙</span>
                             <div>
                                 <div class="text-dim text-sm" data-i18n="contact_github_lbl">Source Code Repositories</div>
-                                <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="text-accent mono" style="text-decoration: none;">github.com/systems-architect</a>
+                                <a href="https://github.com/eyosias-1/postfolio" target="_blank" rel="noopener noreferrer" class="text-accent mono contact-link">github.com/eyosias-1/postfolio</a>
                             </div>
                         </div>
 
                         <div class="contact-item">
-                            <span class="mono text-purple">📍</span>
+                            <span class="contact-icon text-purple" aria-hidden="true">📍</span>
                             <div>
                                 <div class="text-dim text-sm">Geographic Base</div>
-                                <span data-i18n="contact_location">Addis Ababa, ET / Global Remote</span>
+                                <span class="mono" data-i18n="contact_location">Addis Ababa, ET / Global Remote</span>
                             </div>
                         </div>
                     </div>
@@ -435,6 +593,11 @@
             </div>
         </section>
     </main>
+
+    <!-- Floating Back to Top Button -->
+    <button type="button" id="back-to-top" class="back-to-top" aria-label="Back to top" title="Back to top">
+        ↑
+    </button>
 
     <!-- Footer -->
     <footer class="footer">
